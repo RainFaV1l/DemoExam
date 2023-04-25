@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Collection;
+use App\Models\Product;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
@@ -21,14 +23,17 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
 
-        User::query()->create([
-            'name' => 'Администратор',
-            'surname' => 'Администратор',
-            'midname' => 'Администратор',
-            'login' => 'admin',
-            'role' => 'admin',
-            'email' => 'admin@mail.ru',
-            'password' => Hash::make('admin11'),
-        ]);
+//        User::query()->create([
+//            'name' => 'Администратор',
+//            'surname' => 'Администратор',
+//            'midname' => 'Администратор',
+//            'login' => 'admin',
+//            'role' => 'admin',
+//            'email' => 'admin@mail.ru',
+//            'password' => Hash::make('admin11'),
+//        ]);
+
+//        Collection::factory(20)->create();
+//        Product::factory(2000)->create();
     }
 }

@@ -4,8 +4,87 @@
     box-sizing: border-box;
 }
 
+body {
+    font-family: sans-serif;
+}
+
 form {
     display: flex;
     flex-direction: column;
     gap: 16px;
+}
+
+.nav {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    padding: 20px 0;
+}
+
+.container {
+    max-width: 1210px;
+    padding: 0 20px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.collections {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin: 48px 0;
+}
+
+.collections .collection {
+    text-decoration: none;
+}
+
+.image img {
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+    aspect-ratio: 1;
+}
+
+.pagination {
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+    margin: 32px 0;
+    list-style: none;
+}
+
+.pagination_ul.pagination {
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.products {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+}
+
+.product {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.product .product-info {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
 }

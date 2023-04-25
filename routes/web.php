@@ -16,20 +16,31 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::group([
+
     'controller' => IndexController::class,
     'as' => 'page.'
+
 ], function () {
+
     Route::get('/', 'home')->name('home');
     Route::get('/login', 'login')->name('login');
     Route::get('/register', 'register')->name('register');
+
+    // Страница с продуктами
+    Route::get('/products', 'allProducts')->name('allProducts');
+
 });
 
 Route::group([
+
     'controller' => AuthController::class,
     'as' => 'auth.',
     'prefix' => '/auth'
+
 ], function () {
+
     Route::post('/create', 'createUser')->name('createUser');
     Route::post('/login', 'loginUser')->name('loginUser');
     Route::get('/logout', 'logoutUser')->name('logoutUser');
+
 });

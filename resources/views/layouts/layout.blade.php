@@ -11,6 +11,7 @@
 </head>
 <body>
     <main>
+        @include('components.header')
         @yield('content')
     </main>
 </body>
