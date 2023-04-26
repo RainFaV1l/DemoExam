@@ -3,10 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Services\CartService;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
+
+    protected CartService $cartService;
+
+    public function __construct()
+    {
+        $this->cartService = new CartService();
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -45,5 +54,23 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         //
+    }
+
+    /**
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function addToCart($id)
+    {
+        $product = Product::query()->find($id);
+
+        if(is_null($product)) {
+            return back();
+        }
+
+        $this->cartService->add($product);
+
+        return back();
+
     }
 }

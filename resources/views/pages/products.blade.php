@@ -9,6 +9,9 @@
                 <h1 class="section-header__title">All products</h1>
             </header>
             <div class="collections">
+                @if(request()->get('collection'))
+                    <a href="{{ route('page.allProducts') }}" class="collection">Clear</a>
+                @endif
                 @foreach($collections as $collection)
                     <a href="?collection={{ $collection->id }}" class="collection">{{ $collection->name }}</a>
                 @endforeach
@@ -23,7 +26,7 @@
                             <h2 class="product__title">{{ $product->name }}</h2>
                             <p class="product__short">{{ $product->short_text }}</p>
                             <p class="product__price">{{ $product->money() }}</p>
-                            <a href="" class="button">Add to cart</a>
+                            <a href="{{ route('product.addToCart', $product) }}" class="button">Add to cart</a>
                         </div>
                     </div>
                 @endforeach
