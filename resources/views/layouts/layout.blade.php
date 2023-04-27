@@ -12,6 +12,13 @@
 <body>
     <main>
         @include('components.header')
+        @if(session()->has('message'))
+            <div class="container">
+                <div class="alert alert-info">
+                    <p>{{ session()->get('message') }}</p>
+                </div>
+            </div>
+        @endif
         @yield('content')
     </main>
 </body>

@@ -56,7 +56,7 @@ class CartController extends Controller
 
         $this->cartService->clear();
 
-        Mail::to('nazmiev.tvink@yandex.ru')->send(new OrderCreatedMail($order));
+        Mail::to(auth()->user()->email)->send(new OrderCreatedMail($order));
 
         return redirect()->route('page.home')->with('message', 'Order has been created!');
     }

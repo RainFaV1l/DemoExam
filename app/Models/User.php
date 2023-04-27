@@ -12,6 +12,8 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
+    const IS_USER = 'user';
+    const IS_ADMIN = 'admin';
     /**
      * The attributes that are mass assignable.
      *
@@ -26,7 +28,6 @@ class User extends Authenticatable
         'email',
         'password',
     ];
-
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -35,4 +36,18 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
     ];
+
+    // full_name
+    public function getFullNameAttribute() {
+        return $this->surname . ' ' . $this->name;
+    }
+
+//    public function fullName() : Attribute {
+//        return \Attribute::make(get: fn() => $this->surname . ' ' . $this->name)
+//    }
+
+    public function isAdmin(): bool
+    {
+        return (bool) $this->role == self::IS_ADMIN;
+    }
 }

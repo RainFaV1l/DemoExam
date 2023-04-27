@@ -40,6 +40,11 @@ Route::group([
     'prefix' => '/product'
 
 ], function () {
+    Route::group([
+        'middleware' => ['auth', \App\Http\Middleware\AdminMiddleware::class]
+    ], function () {
+        Route::post('/create', 'store')->name('store')->where('id', '[0-9]*');
+    });
     Route::get('/{id}/addToCart', 'addToCart')->name('addToCart');
 });
 
@@ -69,4 +74,23 @@ Route::group([
     Route::get('/create', 'createOrder')->middleware('auth')->name('createOrder');
     Route::get('/{product:id}/remove', 'remove')->name('remove');
 
+});
+
+Route::group([
+    'controller' => \App\Http\Controllers\AdminController::class,
+    'as' => 'admin.',
+    'prefix' => '/admin',
+    'middleware' => ['auth', \App\Http\Middleware\AdminMiddleware::class]
+], function () {
+    Route::get('/', 'index')->name('index');
+    Route::get('/product/create', 'createProduct')->name('createProduct');
+});
+
+Route::group([
+    'controller' => \App\Http\Controllers\OrderController::class,
+    'as' => 'order.',
+    'prefix' => '/order',
+    'middleware' => ['auth', \App\Http\Middleware\AdminMiddleware::class]
+], function () {
+    Route::get('/toggle/{order:id}', 'toggleOrderStatus')->name('toggle');
 });
