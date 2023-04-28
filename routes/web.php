@@ -44,8 +44,10 @@ Route::group([
         'middleware' => ['auth', \App\Http\Middleware\AdminMiddleware::class]
     ], function () {
         Route::post('/create', 'store')->name('store')->where('id', '[0-9]*');
+        Route::post('/update/{product:id}', 'update')->name('update')->where('id', '[0-9]*');
     });
     Route::get('/{id}/addToCart', 'addToCart')->name('addToCart');
+    Route::get('/{product:id}', 'show')->name('show')->where('id', '[0-9]*');
 });
 
 Route::group([
@@ -84,6 +86,7 @@ Route::group([
 ], function () {
     Route::get('/', 'index')->name('index');
     Route::get('/product/create', 'createProduct')->name('createProduct');
+    Route::get('/product/{product:id}/update', 'updateProduct')->name('updateProduct');
 });
 
 Route::group([

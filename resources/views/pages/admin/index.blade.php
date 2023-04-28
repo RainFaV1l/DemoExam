@@ -66,7 +66,16 @@
                                 <span>{{ $order->user->full_name }}</span>
                                 <span>{{ $order->total }}</span>
                                 <span>
-                                    <a href="{{ route('order.toggle', [$order, 'status=delivered']) }}">Delivered</a>
+                                    @switch($order->status)
+                                        @case('new')
+                                            <a href="{{ route('order.toggle', [$order, 'status=delivered']) }}">Delivered</a>
+                                        @case('canceled')
+                                            <a href="{{ route('order.toggle', [$order, 'status=delivered']) }}">Delivered</a>
+                                        @case('completed')
+                                            <a href="{{ route('order.toggle', [$order, 'status=canceled']) }}">Delivered</a>
+                                        @case('delivered')
+                                            <a href="{{ route('order.toggle', [$order, 'status=completed']) }}">Delivered</a>
+                                    @endswitch
                                     <a href="">Remove</a>
                                 </span>
                             </div>
