@@ -30,6 +30,14 @@
                         </div>
                     @endforeach
                 </div>
+                <div class="cart-total">
+                    <h3>Total: {{ $cart->getTotal() }}</h3>
+                    <form id="js-checkout">
+                        @csrf
+                        <input type="password" name="password" placeholder="Введите пароль">
+                        <button class="button">Checkoit</button>
+                    </form>
+                </div>
             @endif
         </div>
     </section>
