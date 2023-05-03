@@ -21,5 +21,8 @@
         @endif
         @yield('content')
     </main>
+    <div id="notifications">
+
+    </div>
 </body>
 </html>

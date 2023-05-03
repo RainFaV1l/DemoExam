@@ -6,7 +6,7 @@
     <section>
         <h1>Register</h1>
         @include('components.errors')
-        <form method="post" action="{{ route('auth.createUser') }}">
+        <form id="create-user-form" method="post" action="{{ route('auth.createUser') }}">
             @csrf
             <input value="{{ old('name') }}" type="text" name="name" placeholder="Имя">
             <input value="{{ old('surname') }}" type="text" name="surname" placeholder="Фамилия">

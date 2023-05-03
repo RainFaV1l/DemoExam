@@ -40,6 +40,40 @@ const Request = {
     }
 };
 
+const Notifications = {
+    parent: document.getElementById('notifications'),
+    _create(title, text) {
+
+        const body = document.createElement('div');
+        const titleElement = document.createElement('h4');
+        const textElement = document.createElement('p');
+
+        body.classList.add('notification');
+
+        titleElement.textContent = title;
+        textElement.textContent = text;
+
+        body.append(titleElement);
+        body.append(textElement);
+
+        return body;
+
+    },
+    show(title, text) {
+        const notification = this._create(title, text);
+        this.parent.append(notification);
+        setTimeout(() => {
+            notification.remove()
+        }, 3000)
+    },
+    success() {
+
+    },
+    error() {
+
+    },
+};
+
 const createOrder = (formEl) => {
     const button = formEl.querySelector('button');
     button.addEventListener('click', (e) => {
@@ -78,6 +112,48 @@ const cart = (container) => {
     });
 }
 
+const pUrl = (url) => {
+    return url.replace(API_URL, '');
+}
+
+const createUser = (container) => {
+
+    const url = container.getAttribute('action');
+    const button = container.querySelector('button');
+
+    const callback = () => {
+        Request.post(pUrl(url), makeFormData(container))
+            .then((r) => r.json())
+            .then((data) => {
+                if(data.errors) {
+                    // let errors = [];
+                    let values = Object.values(data.errors);
+                    for (const value of values) {
+                        Notifications.show('Ошибка регистрации', value.pop());
+                        // errors.push(value.pop());
+                    }
+                    // alert(errors.join(' | '));
+                }
+
+                if(data.status) {
+                    alert(`${data.message} Вы будете перенаправлены через 3 секунты!`);
+                    setTimeout(() => window.location.href = data.redirect_url, 3000);
+                }
+            });
+    }
+
+    button.addEventListener('click', (e) => {
+        e.preventDefault();
+        callback();
+    })
+
+    container.addEventListener('submit', (e) => {
+        e.preventDefault();
+        callback();
+    })
+
+}
+
 const init = () => {
     const checkoutFormElement = document.getElementById('js-checkout');
 
@@ -89,6 +165,12 @@ const init = () => {
 
     if(cartElement) {
         cart(cartElement);
+    }
+
+    const createUserFormElement = document.getElementById('create-user-form');
+
+    if(createUserFormElement) {
+        createUser(createUserFormElement);
     }
 }
 
